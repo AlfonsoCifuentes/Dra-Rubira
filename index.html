@@ -1,43 +1,459 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dra. Rubira - Cuidado Dental Personalizado</title>
-    <meta name="description" content="La Dra. Rubira ofrece soluciones dentales integrales con un trato cercano y profesional.">
-    <style>
-        :root { --primary: #ad1457; --accent: #fce4ec; --text: #333; }
-        body { font-family: 'Georgia', serif; color: var(--text); line-height: 1.6; margin: 0; }
-        header { background: white; padding: 2rem; border-bottom: 2px solid var(--accent); text-align: center; }
-        .hero { background: var(--accent); padding: 4rem 2rem; text-align: center; }
-        .services { padding: 4rem 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1200px; margin: auto; }
-        .service-card { border: 1px solid #f8bbd0; padding: 2rem; border-radius: 8px; background: white; }
-        .cta { background: var(--primary); color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 1rem; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dra. Rubira — Medico Especialista en Madrid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #2E7D6A;
+      --green-dark: #1B5E50;
+      --green-light: #E8F5F0;
+      --green-mid: #4CAF93;
+      --white: #FFFFFF;
+      --text: #1A2A25;
+      --text-muted: #5A7068;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Open Sans', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 2rem;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(46,125,106,0.12);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+
+    .logo {
+      font-family: 'Nunito', sans-serif; font-weight: 800;
+      font-size: 1.2rem; color: var(--green); letter-spacing: -0.3px;
+    }
+    .logo span { color: var(--text); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.88rem; font-weight: 600; color: var(--text); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta { background: var(--green); color: var(--white) !important; padding: 0.6rem 1.4rem; border-radius: 50px; }
+    .nav-cta:hover { background: var(--green-dark) !important; }
+
+    /* HERO */
+    #hero {
+      height: 100vh; min-height: 640px;
+      position: relative; display: flex; align-items: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1551076805-e1869033e561?w=1600&q=80') center/cover no-repeat;
+    }
+    .hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(110deg, rgba(27,94,80,0.88) 0%, rgba(46,125,106,0.65) 45%, rgba(0,0,0,0.15) 100%);
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      color: var(--white); padding: 0 2rem; max-width: 640px; margin-left: 8%;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+      color: var(--white); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.4rem 1rem; border-radius: 50px; margin-bottom: 1.5rem;
+    }
+    .hero-badge svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    .hero-content h1 {
+      font-family: 'Nunito', sans-serif; font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1.1;
+      margin-bottom: 1.2rem; letter-spacing: -0.5px;
+    }
+    .hero-content h1 em { font-style: normal; color: #80CBC9; }
+    .hero-content p {
+      font-size: clamp(0.95rem, 2vw, 1.1rem); font-weight: 300;
+      opacity: 0.9; margin-bottom: 2.5rem; line-height: 1.7;
+    }
+
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block; background: var(--white); color: var(--green);
+      font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.95rem;
+      padding: 1rem 2.2rem; border-radius: 50px; text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+    .btn-ghost {
+      display: inline-block; border: 2px solid rgba(255,255,255,0.45);
+      color: var(--white); font-family: 'Nunito', sans-serif; font-weight: 700;
+      font-size: 0.95rem; padding: 0.9rem 1.8rem; border-radius: 50px;
+      text-decoration: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+
+    .hero-trust {
+      position: absolute; bottom: 2rem; left: 8%; right: 8%;
+      z-index: 2; display: flex; gap: 2rem; flex-wrap: wrap;
+    }
+    .trust-item {
+      background: rgba(255,255,255,0.12); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px; padding: 0.8rem 1.2rem;
+      display: flex; align-items: center; gap: 0.7rem; color: var(--white);
+    }
+    .trust-item svg { width: 20px; height: 20px; stroke: #80CBC9; fill: none; stroke-width: 1.8; stroke-linecap: round; }
+    .trust-item strong { display: block; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.9rem; }
+    .trust-item span { font-size: 0.75rem; opacity: 0.75; }
+
+    /* SECTIONS */
+    section { padding: 5rem 1.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); margin-bottom: 0.8rem; }
+    .section-title { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.15; color: var(--text); margin-bottom: 1rem; letter-spacing: -0.3px; }
+    .section-desc { font-size: 1rem; color: var(--text-muted); line-height: 1.7; max-width: 560px; }
+
+    /* ESPECIALIDADES */
+    #especialidades { background: var(--green-light); }
+    .esp-header { margin-bottom: 3rem; }
+    .esp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+
+    .esp-card {
+      background: var(--white); border-radius: 16px; padding: 2rem 1.8rem;
+      transition: transform 0.25s, box-shadow 0.25s;
+      border: 1px solid rgba(46,125,106,0.1);
+    }
+    .esp-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(46,125,106,0.14); }
+    .esp-icon {
+      width: 52px; height: 52px; background: var(--green-light); border-radius: 14px;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem;
+    }
+    .esp-icon svg { width: 26px; height: 26px; stroke: var(--green); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .esp-card h3 { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem; }
+    .esp-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* SOBRE */
+    #sobre { background: var(--white); }
+    .sobre-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .sobre-image { border-radius: 24px; overflow: hidden; position: relative; aspect-ratio: 3/4; }
+    .sobre-image img { width: 100%; height: 100%; object-fit: cover; }
+    .sobre-image::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(27,94,80,0.3) 0%, transparent 50%);
+      z-index: 1;
+    }
+    .sobre-badge {
+      position: absolute; bottom: 1.5rem; right: 1.5rem; z-index: 2;
+      background: var(--green); color: var(--white); padding: 1rem 1.4rem;
+      border-radius: 14px; font-family: 'Nunito', sans-serif; text-align: center;
+    }
+    .sobre-badge strong { display: block; font-size: 2rem; font-weight: 800; line-height: 1; }
+    .sobre-badge span { font-size: 0.75rem; opacity: 0.85; }
+
+    .sobre-content .section-desc { margin-bottom: 2rem; }
+    .sobre-list { display: flex; flex-direction: column; gap: 0.9rem; }
+    .sobre-item { display: flex; gap: 0.8rem; align-items: flex-start; }
+    .sobre-check {
+      width: 22px; height: 22px; flex-shrink: 0; margin-top: 2px;
+      background: var(--green-light); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .sobre-check svg { width: 12px; height: 12px; stroke: var(--green); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .sobre-item p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+    .sobre-item strong { color: var(--text); }
+
+    /* COMO */
+    #como { background: var(--green-light); }
+    .como-header { text-align: center; margin-bottom: 3rem; }
+    .como-header .section-desc { margin: 0 auto; text-align: center; }
+    .como-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; position: relative; }
+
+    .como-step { text-align: center; padding: 1.5rem; }
+    .como-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--green); color: var(--white);
+      font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1.3rem;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem;
+    }
+    .como-step h4 { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
+    .como-step p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* CITA */
+    #cita {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+      color: var(--white); text-align: center;
+    }
+    #cita .section-title { color: var(--white); }
+    #cita .section-desc { color: rgba(255,255,255,0.8); margin: 0 auto 2.5rem; }
+
+    .cita-form {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      justify-content: center; max-width: 640px; margin: 0 auto;
+    }
+    .cita-form input, .cita-form select {
+      flex: 1; min-width: 200px; padding: 1rem 1.2rem;
+      border: 1px solid rgba(255,255,255,0.25); border-radius: 10px;
+      background: rgba(255,255,255,0.12); color: var(--white);
+      font-family: 'Open Sans', sans-serif; font-size: 0.9rem; outline: none;
+    }
+    .cita-form input::placeholder { color: rgba(255,255,255,0.55); }
+    .cita-form select option { color: var(--text); background: var(--white); }
+    .btn-white {
+      background: var(--white); color: var(--green); font-family: 'Nunito', sans-serif;
+      font-weight: 800; font-size: 0.95rem; padding: 1rem 2rem;
+      border-radius: 10px; border: none; cursor: pointer; transition: transform 0.2s;
+    }
+    .btn-white:hover { transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { background: #0D1F1A; color: rgba(255,255,255,0.6); padding: 2.5rem 1.5rem; text-align: center; }
+    .footer-logo { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--white); margin-bottom: 0.75rem; }
+    .footer-logo span { color: var(--green-mid); }
+    footer p { font-size: 0.85rem; line-height: 1.7; }
+    .footer-copy { margin-top: 1.5rem; font-size: 0.75rem; opacity: 0.35; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--white); padding: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .hero-content { margin-left: 0; }
+      .hero-trust { display: none; }
+      .sobre-layout { grid-template-columns: 1fr; }
+      .sobre-image { aspect-ratio: 16/9; }
+      section { padding: 3.5rem 1.2rem; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Dra. Rubira</h1>
-        <p>Expertos en Salud Bucodental</p>
-    </header>
-    <section class="hero">
-        <h2>Un trato humano para una sonrisa de confianza</h2>
-        <p>Cuidamos de tu boca con el cariño y la profesionalidad que te mereces.</p>
-        <a href="#contacto" class="cta">Habla con la Dra. Rubira</a>
-    </section>
-    <main class="services">
-        <div class="service-card">
-            <h3>Odontología Preventiva</h3>
-            <p>Mantenemos tu salud bucodental con revisiones y limpiezas periódicas.</p>
+
+  <nav id="navbar">
+    <div class="logo">Dra. <span>Rubira</span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#especialidades">Especialidades</a></li>
+      <li><a href="#sobre">La Doctora</a></li>
+      <li><a href="#como">Como Trabajamos</a></li>
+      <li><a href="#cita" class="nav-cta">Solicitar Consulta</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        Medicina Especializada Madrid
+      </div>
+      <h1>Salud con <em>dedicacion</em> y conocimiento</h1>
+      <p>La Dra. Rubira combina anos de experiencia clinica con un trato cercano y personalizado. Tu bienestar es el centro de cada consulta.</p>
+      <div class="hero-btns">
+        <a href="#cita" class="btn-primary">Solicitar Consulta</a>
+        <a href="#especialidades" class="btn-ghost">Ver Especialidades</a>
+      </div>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
+        <div><strong>+3.000 pacientes</strong><span>Atendidos</span></div>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div><strong>Respuesta en 24h</strong><span>Tiempo de respuesta</span></div>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        <div><strong>Medicina basada en evidencia</strong><span>Tratamientos actualizados</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESPECIALIDADES -->
+  <section id="especialidades">
+    <div class="container">
+      <div class="esp-header">
+        <div class="section-label">Especialidades</div>
+        <h2 class="section-title">Atencion medica integral y especializada</h2>
+        <p class="section-desc">La Dra. Rubira ofrece un enfoque medico completo, con especializacion en las areas que mas impactan en tu calidad de vida.</p>
+      </div>
+      <div class="esp-grid">
+
+        <div class="esp-card">
+          <div class="esp-icon">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+          <h3>Medicina Interna</h3>
+          <p>Diagnostico y tratamiento de enfermedades sistemicas complejas. Atencion preventiva y seguimiento continuo de patologias cronicas.</p>
         </div>
-        <div class="service-card">
-            <h3>Odontología Restauradora</h3>
-            <p>Recuperamos tus piezas dentales dañadas con los mejores materiales.</p>
+
+        <div class="esp-card">
+          <div class="esp-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>Nutricion Clinica</h3>
+          <p>Planes nutricionales personalizados basados en analisis clinico. Abordaje integral del peso, energia y salud metabolica.</p>
         </div>
-        <div class="service-card">
-            <h3>Tratamiento de Caries</h3>
-            <p>Empastes estéticos y eficaces para la salud de tus dientes.</p>
+
+        <div class="esp-card">
+          <div class="esp-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <h3>Medicina Preventiva</h3>
+          <p>Chequeos medicos completos y programas de prevencion adaptados a tu edad, estilo de vida y factores de riesgo.</p>
         </div>
-    </main>
+
+        <div class="esp-card">
+          <div class="esp-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h3>Segunda Opinion Medica</h3>
+          <p>Consulta con la Dra. Rubira para validar diagnosticos y revisar opciones de tratamiento con una perspectiva experta e independiente.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <div class="container">
+      <div class="sobre-layout">
+        <div class="sobre-image">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&q=80" alt="Dra. Rubira">
+          <div class="sobre-badge">
+            <strong>+18</strong>
+            <span>Anos de experiencia</span>
+          </div>
+        </div>
+        <div class="sobre-content">
+          <div class="section-label">La Doctora</div>
+          <h2 class="section-title">Comprometida con tu salud desde el primer dia</h2>
+          <p class="section-desc">La Dra. Rubira se formo en la Universidad Complutense de Madrid y ha completado su especializacion en los mejores hospitales europeos. Su enfoque combina la rigorosidad cientifica con la calidez humana.</p>
+          <div class="sobre-list">
+            <div class="sobre-item">
+              <div class="sobre-check">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <p><strong>Licenciada en Medicina y Cirugia</strong> — Universidad Complutense de Madrid</p>
+            </div>
+            <div class="sobre-item">
+              <div class="sobre-check">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <p><strong>Master en Nutricion Clinica</strong> — Universidad de Barcelona</p>
+            </div>
+            <div class="sobre-item">
+              <div class="sobre-check">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <p><strong>Formacion continuada</strong> en los mejores centros europeos y americanos</p>
+            </div>
+            <div class="sobre-item">
+              <div class="sobre-check">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <p><strong>Miembro del Colegio Oficial de Medicos</strong> de Madrid</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO -->
+  <section id="como">
+    <div class="container">
+      <div class="como-header">
+        <div class="section-label">Metodologia</div>
+        <h2 class="section-title">Como trabajamos contigo</h2>
+        <p class="section-desc">Un proceso claro, humano y orientado a resultados medibles para tu salud a largo plazo.</p>
+      </div>
+      <div class="como-steps">
+        <div class="como-step">
+          <div class="como-num">1</div>
+          <h4>Primera Consulta</h4>
+          <p>Escuchamos tu historial completo, realizamos una evaluacion inicial y definimos objetivos de salud claros.</p>
+        </div>
+        <div class="como-step">
+          <div class="como-num">2</div>
+          <h4>Diagnostico Preciso</h4>
+          <p>Solicitud de pruebas especificas y analisis de resultados con los criterios mas actualizados de la medicina basada en evidencia.</p>
+        </div>
+        <div class="como-step">
+          <div class="como-num">3</div>
+          <h4>Plan Personalizado</h4>
+          <p>Disenaremos contigo un plan de tratamiento o prevencion adaptado a tu situacion, estilo de vida y objetivos.</p>
+        </div>
+        <div class="como-step">
+          <div class="como-num">4</div>
+          <h4>Seguimiento Continuo</h4>
+          <p>Revisiones periodicas y acceso directo a la Dra. Rubira para resolver dudas y ajustar el plan cuando sea necesario.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CITA -->
+  <section id="cita">
+    <div class="container">
+      <div class="section-label" style="color:rgba(255,255,255,0.6)">Cita Online</div>
+      <h2 class="section-title">Solicita tu consulta hoy</h2>
+      <p class="section-desc">Rellena el formulario y la Dra. Rubira o su equipo te contactaran en menos de 24 horas.</p>
+      <div class="cita-form">
+        <input type="text" placeholder="Tu nombre completo">
+        <input type="tel" placeholder="Tu numero de telefono">
+        <input type="email" placeholder="Tu email">
+        <select>
+          <option value="">Motivo de consulta</option>
+          <option>Medicina Interna</option>
+          <option>Nutricion Clinica</option>
+          <option>Medicina Preventiva</option>
+          <option>Segunda Opinion Medica</option>
+          <option>Revision General</option>
+        </select>
+        <button class="btn-white">Solicitar Consulta</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Dra. <span>Rubira</span></div>
+    <p>Medicina Especializada Madrid</p>
+    <p>Calle Lagasca 88, 28001 Madrid · +34 91 234 56 78</p>
+    <p class="footer-copy">&copy; 2025 Dra. Rubira. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
+    function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.esp-card, .como-step, .sobre-item').forEach(el => {
+      el.style.opacity = '0'; el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
